@@ -18,6 +18,8 @@ explains the trade-offs between analogs.
 ```
 phrase-match/
 ├── README.md                        ← this file: overview, layout, quickstart, principles
+├── phrase_match.py                  — top-level entry point; forwards to scripts/lookup.py so a
+│                                      lookup works from the repo root without the long path
 ├── requirements.txt                 — optional deps (rapidfuzz, pymorphy3); scripts run on stdlib alone
 ├── .gitignore                       — excludes the derived SQLite index, __pycache__, local settings
 │
@@ -25,6 +27,11 @@ phrase-match/
 │   ├── idioms.json                  — SOURCE OF TRUTH: phrases → readings (glosses, context
 │   │                                  cues) → analogs per language, each with verified source URLs
 │   └── idioms.sqlite                — derived index, git-ignored; rebuilt by scripts/seed_db.py
+│
+├── results/
+│   ├── ne-goni-loshadej.json        — saved analyses, one JSON record per phrase: prompt
+│   ├── ot-raboty-koni-dohnut.json     components (role → grounding rule), per-context reading
+│   └── bez-truda-ne-vylovish.json     selection, ranked analogs, verified sources
 │
 ├── .claude/
 │   ├── settings.json                — shared Claude Code permissions for this repo
@@ -54,18 +61,23 @@ Pure-stdlib (Python ≥ 3.10) — optional extras in `requirements.txt` improve
 matching quality:
 
 ```bash
-cd .claude/skills/phrase-match/scripts
+git clone https://github.com/max402/phrase-match.git
+cd phrase-match
 
 # look up a phrase (fuzzy: inflected forms and variants match too)
-python3 lookup.py --phrase "Не гони лошадей!" --target de \
+python3 phrase_match.py --phrase "Не гони лошадей!" --target de \
     --context "Коллега торопит с решением по сделке"
 
 # verify every source URL in the database
-python3 verify_refs.py --from-data
+python3 .claude/skills/phrase-match/scripts/verify_refs.py --from-data
 
 # rebuild the derived SQLite index after editing data/idioms.json
-python3 seed_db.py
+python3 .claude/skills/phrase-match/scripts/seed_db.py
 ```
+
+Saved example analyses for the three seed phrases live in `results/` —
+one JSON record per phrase with the selected reading per context, ranked
+analogs, and verified sources.
 
 In Claude Code, the skill triggers automatically on requests like
 *"Find a German analog of «От работы кони дохнут» — a colleague jokingly
