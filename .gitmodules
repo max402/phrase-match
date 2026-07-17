@@ -1,0 +1,4 @@
+[submodule ".llm-wiki"]
+	path = .llm-wiki
+	url = https://github.com/max402/phrase-match-llm-wiki.git
+	branch = main
