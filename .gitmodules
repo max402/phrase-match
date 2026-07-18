@@ -1,4 +1,4 @@
-[submodule ".llm-wiki"]
-	path = .llm-wiki
+[submodule "phrase-match-llm-wiki"]
+	path = phrase-match-llm-wiki
 	url = https://github.com/max402/phrase-match-llm-wiki.git
 	branch = main
