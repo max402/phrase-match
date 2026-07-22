@@ -8,3 +8,7 @@ __pycache__/
 
 # local-only Claude Code settings
 .claude/settings.local.json
+
+# editor/OS
+/.idea/
+.DS_Store
