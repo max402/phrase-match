@@ -68,10 +68,24 @@ def normalize(text: str) -> str:
 
 
 def similarity(a: str, b: str) -> float:
-    """Fuzzy similarity of two normalized strings on a 0–100 scale."""
+    """Fuzzy similarity of two normalized strings on a 0–100 scale.
+
+    token_set_ratio alone scores ~100 whenever one side's tokens are a
+    subset of the other's, so a single stray word (e.g. "работы") would
+    score as an exact match against a whole idiom. Scale by token-count
+    coverage — the shorter side's share of the longer side — so a
+    subset-only query falls back below --min-score instead of returning a
+    false cited match.
+    """
+    a_tokens, b_tokens = a.split(), b.split()
+    if not a_tokens or not b_tokens:
+        return 0.0
+    coverage = min(len(a_tokens), len(b_tokens)) / max(len(a_tokens), len(b_tokens))
     if _fuzz is not None:
-        return _fuzz.token_set_ratio(a, b)
-    return 100.0 * difflib.SequenceMatcher(None, a, b).ratio()
+        base = _fuzz.token_set_ratio(a, b)
+    else:
+        base = 100.0 * difflib.SequenceMatcher(None, a, b).ratio()
+    return base * coverage
 
 
 def dump_json(obj: Any) -> str:
