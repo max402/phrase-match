@@ -14,6 +14,7 @@ Exit codes: 0 = all URLs alive, 1 = at least one dead or unreachable.
 from __future__ import annotations
 
 import argparse
+import http.client
 import sys
 import urllib.error
 import urllib.parse
@@ -47,6 +48,15 @@ def check(url: str) -> tuple[bool, str]:
             if method == "HEAD" and err.code in (403, 405):
                 continue  # some servers reject HEAD; retry with GET
             return False, str(err.code)
+        except (http.client.HTTPException, ConnectionError) as err:
+            # Some servers answer HEAD by closing the connection instead of
+            # sending a status line. urlopen raises that from getresponse(),
+            # which sits outside its own try block, so it never becomes a
+            # URLError and the clause below cannot see it. Treat it as a
+            # transport failure of HEAD only and let GET decide.
+            if method == "HEAD":
+                continue
+            return False, f"unreachable ({type(err).__name__})"
         except (urllib.error.URLError, TimeoutError) as err:
             return False, f"unreachable ({getattr(err, 'reason', err)})"
     return False, "unreachable"
