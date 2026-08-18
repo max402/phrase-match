@@ -38,6 +38,9 @@ def encode_url(url: str) -> str:
 
 def check(url: str) -> tuple[bool, str]:
     """Return (alive, status). Tries HEAD first, falls back to GET."""
+    scheme = urllib.parse.urlsplit(url).scheme
+    if scheme not in ("http", "https"):
+        return False, f"unsupported scheme ({scheme or 'none'})"
     encoded = encode_url(url)
     for method in ("HEAD", "GET"):
         request = urllib.request.Request(encoded, method=method, headers={"User-Agent": USER_AGENT})
@@ -45,8 +48,8 @@ def check(url: str) -> tuple[bool, str]:
             with urllib.request.urlopen(request, timeout=TIMEOUT_S) as response:
                 return True, str(response.status)
         except urllib.error.HTTPError as err:
-            if method == "HEAD" and err.code in (403, 405):
-                continue  # some servers reject HEAD; retry with GET
+            if method == "HEAD":
+                continue  # some servers reject HEAD with any status; retry with GET
             return False, str(err.code)
         except (http.client.HTTPException, ConnectionError) as err:
             # Some servers answer HEAD by closing the connection instead of
