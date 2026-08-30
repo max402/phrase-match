@@ -115,3 +115,59 @@ Typical query cost: a few hundred tokens instead of a multi-thousand-token web-s
 | От работы кони дохнут | Ironic excuse for laziness → humorous analog, matching irony | Serious warning about overwork → different, non-jocular rendering |
 | Без труда не выловишь и рыбку из пруда | Neutral proverb use → dictionary-verified equivalents (see Wiktionary link above) | — |
 
+## 8. From repo to lightweight service (decided 2026-07-14)
+
+### 8.1 Collaborator usability — verified
+
+The pushed repo is directly usable: it is publicly clonable
+(`git clone https://github.com/max402/phrase-match.git`), the scripts run on
+stdlib-only Python ≥ 3.10 (`pip install` is optional), and a fresh checkout
+answers a query with exit 0. One friction point was fixed: the lookup script
+was buried under `.claude/skills/…/scripts/`, so a top-level wrapper
+`phrase_match.py` now forwards all arguments to it —
+`python3 phrase_match.py --phrase "…" --target de` works from the repo root.
+Open decision (not blocking): the repo has **no LICENSE file**, so outside
+collaborators formally have no usage rights — pick one before advertising the
+service ([choosealicense.com](https://choosealicense.com/)).
+
+### 8.2 Saved-result format → JSON records that mirror the prompt anatomy
+
+Applied to the three test phrases: see [`results/`](../results/) —
+one file per phrase (`ne-goni-loshadej.json`, `ot-raboty-koni-dohnut.json`,
+`bez-truda-ne-vylovish.json`).
+
+**Decision: one UTF-8 JSON file per phrase, top-level fields
+`prompt_components` + `analyses[]` + `verification`.** Why JSON and not
+Markdown/YAML here:
+
+- **It already is the service.** JSON is the interchange format of the web
+  ([RFC 8259](https://datatracker.ietf.org/doc/html/rfc8259), media type
+  `application/json`); every HTTP client parses it natively. A static
+  `results/` directory served by any web server — or free via
+  [GitHub Pages](https://pages.github.com/) — is a working read-only API with
+  zero server code. That is the cheapest possible version of "a lightweight
+  service available for everybody".
+- **It preserves the whole prompt anatomy.** Each record carries a
+  `prompt_components` block with all 8 elements of §1 (role, purpose, inputs,
+  task decomposition, output contract, contrastive example, escape hatch,
+  grounding rule), so any record can be replayed as a prompt or audited
+  against the contract. The `analyses[]` array *is* the contrastive example:
+  the same phrase stored under different contexts with different renderings
+  (for single-reading phrases the slot is explicitly reserved).
+- **It is machine-checkable.** A `schema_version` field today, a formal
+  [JSON Schema](https://json-schema.org/) when the service goes live —
+  Markdown has no comparable validation path, and YAML adds parsing
+  ambiguity without adding capability.
+- **No contradiction with §2.** §2 chose Markdown+XML for the *prompt the
+  model reads*; this section chooses JSON for *stored/served results* — the
+  two live on different layers, and §2's Cyrillic rule still applies: all
+  files are written with `ensure_ascii=False` (no `\uXXXX` escapes).
+- **Honest grounding is part of the schema.** Every analog's `sources` list
+  contains only URLs that `verify_refs.py` saw return HTTP 200 (re-checked
+  for the shipped records on 2026-07-14, 8/8 alive); paraphrases carry
+  `sources: []` plus `escape_hatch_used: true` with a reason — the record
+  cannot silently pass an unverified claim off as a cited one.
+
+When the public site exists, human-readable pages are rendered *from* these
+JSON records, never maintained in parallel — one source of truth per layer
+(`data/idioms.json` for knowledge, `results/*.json` for answers).
