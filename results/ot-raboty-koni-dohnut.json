@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "generated": "2026-07-14",
+  "generator": "phrase-match: scripts retrieve (data/idioms.json v1, lookup score 100), the model selects the reading and ranks analogs",
+  "phrase": "от работы кони дохнут",
+  "phrase_id": "ot-raboty-koni-dohnut",
+  "source_lang": "ru",
+  "prompt_components": {
+    "role": "Russian–German–English phraseologist",
+    "purpose": "Register-faithful, context-correct rendering; register fidelity matters more than literal meaning",
+    "inputs": ["phrase", "context", "source_lang", "target_lang"],
+    "task_decomposition": [
+      "list all readings of the phrase",
+      "state which reading the context selects and why",
+      "rank target-language analogs by register and pragmatics",
+      "attach only script-verified references"
+    ],
+    "output_contract": "each entry in analyses[]: context → reading_selected + evidence, readings_rejected, ranked analogs per language with register/pragmatics/sources, escape-hatch status",
+    "contrastive_example": "analyses[] itself: the same phrase under two contexts yields different renderings",
+    "escape_hatch": "if no idiomatic equivalent exists, escape_hatch_used=true and only register-matched paraphrases (sources: []) are offered — presented as paraphrases, never as cited facts",
+    "grounding_rule": "every URL below returned HTTP 200 to scripts/verify_refs.py on verification.checked; analogs without sources are explicitly unverified"
+  },
+  "analyses": [
+    {
+      "context": "Да брось ты, отдохни — перекур! От работы кони дохнут.",
+      "context_label": "banter among colleagues — ironic excuse",
+      "reading_selected": "ironic-excuse",
+      "evidence": "«брось», «отдохни», «перекур» — jocular invitation to slack off; the proverb is used as a humorous justification",
+      "readings_rejected": [
+        {
+          "id": "serious-warning",
+          "reason": "nothing in the context signals health danger or genuine concern; the tone is light"
+        }
+      ],
+      "escape_hatch_used": false,
+      "register_gap": "both analogs are noticeably milder than the coarse-ironic Russian original («дохнут» is blunt); say so when translating",
+      "analogs": {
+        "de": [
+          {
+            "rank": 1,
+            "text": "Arbeit allein macht auch nicht glücklich.",
+            "register": "colloquial",
+            "pragmatics": "same anti-overwork stance, milder tone; dict.cc pairs it with 'All work and no play (makes Jack a dull boy)'",
+            "sources": ["https://www.dict.cc/?s=all+work+and+no+play"]
+          }
+        ],
+        "en": [
+          {
+            "rank": 1,
+            "text": "All work and no play makes Jack a dull boy.",
+            "register": "proverb, mildly humorous",
+            "pragmatics": "same anti-overwork stance but much milder; flag the register gap to the reader",
+            "sources": ["https://en.wiktionary.org/wiki/all_work_and_no_play_makes_Jack_a_dull_boy"]
+          }
+        ]
+      }
+    },
+    {
+      "context": "Врач предупредил: с такими переработками ты заработаешь выгорание.",
+      "context_label": "doctor's warning — serious reading",
+      "reading_selected": "serious-warning",
+      "evidence": "«врач», «переработками», «выгорание» — genuine health warning, no irony",
+      "readings_rejected": [
+        {
+          "id": "ironic-excuse",
+          "reason": "a jocular rendering would clash with the medical-warning tone of the context"
+        }
+      ],
+      "escape_hatch_used": true,
+      "escape_hatch_reason": "no established English or German proverb carries the serious reading with the same force; register-matched paraphrases are offered instead and must never be presented as cited equivalents",
+      "analogs": {
+        "de": [
+          {
+            "rank": 1,
+            "text": "Man kann sich auch zu Tode arbeiten.",
+            "register": "neutral",
+            "pragmatics": "paraphrase built on the common verb 'sich zu Tode arbeiten' (to work oneself to death)",
+            "sources": []
+          }
+        ],
+        "en": [
+          {
+            "rank": 1,
+            "text": "Working yourself to death helps no one.",
+            "register": "neutral",
+            "pragmatics": "register-matched paraphrase",
+            "sources": []
+          }
+        ]
+      }
+    }
+  ],
+  "verification": {
+    "tool": "scripts/verify_refs.py",
+    "checked": "2026-07-14",
+    "all_cited_urls_alive": true
+  }
+}

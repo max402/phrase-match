@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "updated": "2026-07-14",
+  "comment": "Source of truth for the phrase-match idiom database. Human-editable. Every source URL must be alive (checked with scripts/verify_refs.py --from-data) before it is committed.",
+  "phrases": [
+    {
+      "id": "ne-goni-loshadej",
+      "phrase": "не гони лошадей",
+      "lang": "ru",
+      "aliases": ["не гоните лошадей", "не гони коней"],
+      "readings": [
+        {
+          "id": "dont-rush",
+          "gloss_ru": "не торопись, не спеши с действием или решением",
+          "gloss_en": "don't rush; take your time with an action or decision",
+          "register": "informal, spoken",
+          "context_cues": ["решение", "торопить", "спешка", "быстрее", "срок", "давить", "успеть", "подождать"],
+          "sources": [
+            {
+              "url": "https://ru.wiktionary.org/wiki/гнать",
+              "note": "ru.wiktionary «гнать», sense «торопить» (to hurry someone)",
+              "verified": "2026-07-14"
+            }
+          ],
+          "analogs": [
+            {
+              "lang": "en",
+              "text": "Hold your horses!",
+              "register": "informal",
+              "pragmatics": "direct appeal to the listener to slow down; closest pragmatic match",
+              "type": "idiom",
+              "sources": [
+                {
+                  "url": "https://en.wiktionary.org/wiki/hold_your_horses",
+                  "note": "en.wiktionary entry: 'wait; slow down'",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "en",
+              "text": "Haste makes waste.",
+              "register": "proverb",
+              "pragmatics": "warns of the consequences of hurrying; less direct than the Russian imperative",
+              "type": "proverb",
+              "sources": [
+                {
+                  "url": "https://en.wiktionary.org/wiki/haste_makes_waste",
+                  "note": "en.wiktionary entry",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "de",
+              "text": "Immer langsam mit den jungen Pferden!",
+              "register": "informal, jocular",
+              "pragmatics": "keeps the horse imagery; direct appeal to slow down",
+              "type": "idiom",
+              "sources": [
+                {
+                  "url": "https://www.dict.cc/?s=hold+your+horses",
+                  "note": "dict.cc lists it as equivalent of 'Hold your horses!'",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "de",
+              "text": "Immer mit der Ruhe!",
+              "register": "informal",
+              "pragmatics": "neutral 'calm down / no rush'; loses the horse imagery",
+              "type": "idiom",
+              "sources": [
+                {
+                  "url": "https://www.dict.cc/?s=hold+your+horses",
+                  "note": "dict.cc lists it as equivalent of 'Hold your horses!'",
+                  "verified": "2026-07-14"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "literal",
+          "gloss_ru": "буквально: не погоняй лошадей (о настоящих лошадях)",
+          "gloss_en": "literal: do not drive the horses hard (about real horses)",
+          "register": "neutral",
+          "context_cues": ["лошадь", "конь", "упряжка", "кучер", "телега", "повозка", "скакать", "вожжи"],
+          "sources": [],
+          "analogs": [
+            {
+              "lang": "en",
+              "text": "Don't drive the horses so hard.",
+              "register": "neutral",
+              "pragmatics": "plain literal translation; use only when real horses are meant",
+              "type": "literal_translation",
+              "sources": []
+            },
+            {
+              "lang": "de",
+              "text": "Treib die Pferde nicht so an.",
+              "register": "neutral",
+              "pragmatics": "plain literal translation; use only when real horses are meant",
+              "type": "literal_translation",
+              "sources": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ot-raboty-koni-dohnut",
+      "phrase": "от работы кони дохнут",
+      "lang": "ru",
+      "aliases": ["от работы кони дохнут, а люди крепнут"],
+      "readings": [
+        {
+          "id": "ironic-excuse",
+          "gloss_ru": "шутливое оправдание нежелания перерабатывать: чрезмерное усердие вредно",
+          "gloss_en": "jocular justification for not overworking: excessive zeal is harmful",
+          "register": "colloquial, ironic, coarse humor",
+          "context_cues": ["шутка", "отдохни", "перекур", "брось", "лень", "не надрывайся", "хватит работать"],
+          "sources": [
+            {
+              "url": "https://ru.wiktionary.org/wiki/от_работы_кони_дохнут",
+              "note": "ru.wiktionary entry (classified as пословица/proverb)",
+              "verified": "2026-07-14"
+            },
+            {
+              "url": "https://ru.wikiquote.org/wiki/Русские_пословицы",
+              "note": "ru.wikiquote collection of Russian proverbs",
+              "verified": "2026-07-14"
+            }
+          ],
+          "analogs": [
+            {
+              "lang": "en",
+              "text": "All work and no play makes Jack a dull boy.",
+              "register": "proverb, mildly humorous",
+              "pragmatics": "same anti-overwork stance but much milder; the Russian original is coarser and more ironic — flag the register gap",
+              "type": "proverb",
+              "sources": [
+                {
+                  "url": "https://en.wiktionary.org/wiki/all_work_and_no_play_makes_Jack_a_dull_boy",
+                  "note": "en.wiktionary entry",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "de",
+              "text": "Arbeit allein macht auch nicht glücklich.",
+              "register": "colloquial",
+              "pragmatics": "same stance, milder tone; dict.cc gives it as the German rendering of 'All work and no play (makes Jack a dull boy)'",
+              "type": "saying",
+              "sources": [
+                {
+                  "url": "https://www.dict.cc/?s=all+work+and+no+play",
+                  "note": "dict.cc pairing with 'All work and no play (makes Jack a dull boy).'",
+                  "verified": "2026-07-14"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "serious-warning",
+          "gloss_ru": "серьёзное предостережение: изнурительный труд губителен",
+          "gloss_en": "serious warning: exhausting labor is destructive",
+          "register": "neutral to serious",
+          "context_cues": ["выгорание", "здоровье", "болезнь", "переработка", "изнурение", "врач", "предупреждение"],
+          "sources": [
+            {
+              "url": "https://ru.wiktionary.org/wiki/от_работы_кони_дохнут",
+              "note": "same proverb; the serious reading is contextual",
+              "verified": "2026-07-14"
+            }
+          ],
+          "analogs": [
+            {
+              "lang": "en",
+              "text": "Working yourself to death helps no one.",
+              "register": "neutral",
+              "pragmatics": "register-matched paraphrase; no established English proverb carries the serious reading with the same force",
+              "type": "paraphrase",
+              "sources": []
+            },
+            {
+              "lang": "de",
+              "text": "Man kann sich auch zu Tode arbeiten.",
+              "register": "neutral",
+              "pragmatics": "register-matched paraphrase built on the common verb 'sich zu Tode arbeiten' (to work oneself to death)",
+              "type": "paraphrase",
+              "sources": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bez-truda-ne-vylovish",
+      "phrase": "без труда не выловишь и рыбку из пруда",
+      "lang": "ru",
+      "aliases": ["без труда не вытащишь и рыбку из пруда", "без труда не вынешь рыбку из пруда"],
+      "readings": [
+        {
+          "id": "no-effort-no-result",
+          "gloss_ru": "ничто не может быть достигнуто без усилий",
+          "gloss_en": "nothing can be achieved without effort",
+          "register": "proverb, neutral; often used didactically with children",
+          "context_cues": ["усилие", "стараться", "учёба", "работа", "добиться", "результат", "лень", "даром"],
+          "sources": [
+            {
+              "url": "https://ru.wiktionary.org/wiki/без_труда_не_выловишь_и_рыбку_из_пруда",
+              "note": "ru.wiktionary entry with gloss «ничто не может быть достигнуто без усилий» and English translations",
+              "verified": "2026-07-14"
+            }
+          ],
+          "analogs": [
+            {
+              "lang": "en",
+              "text": "No pain, no gain.",
+              "register": "informal to neutral; strong sports/fitness connotation",
+              "pragmatics": "listed as the English equivalent directly on the ru.wiktionary page; flag the fitness connotation when the context is didactic",
+              "type": "proverb",
+              "sources": [
+                {
+                  "url": "https://ru.wiktionary.org/wiki/без_труда_не_выловишь_и_рыбку_из_пруда",
+                  "note": "listed in the entry's translation section",
+                  "verified": "2026-07-14"
+                },
+                {
+                  "url": "https://en.wiktionary.org/wiki/no_pain,_no_gain",
+                  "note": "en.wiktionary entry",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "en",
+              "text": "No sweet without sweat.",
+              "register": "proverb, somewhat dated",
+              "pragmatics": "second equivalent listed on the ru.wiktionary page",
+              "type": "proverb",
+              "sources": [
+                {
+                  "url": "https://ru.wiktionary.org/wiki/без_труда_не_выловишь_и_рыбку_из_пруда",
+                  "note": "listed in the entry's translation section",
+                  "verified": "2026-07-14"
+                }
+              ]
+            },
+            {
+              "lang": "de",
+              "text": "Ohne Fleiß kein Preis.",
+              "register": "proverb, neutral; common in didactic contexts — closest register match",
+              "pragmatics": "standard German proverb with the same meaning; loses the fishing imagery",
+              "type": "proverb",
+              "sources": [
+                {
+                  "url": "https://de.wiktionary.org/wiki/ohne_Fleiß_kein_Preis",
+                  "note": "de.wiktionary entry: 'ohne Anstrengung(en) erreicht man kein Ziel'",
+                  "verified": "2026-07-14"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
