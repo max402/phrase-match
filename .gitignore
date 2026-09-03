@@ -1,0 +1,14 @@
+# derived index — rebuild with scripts/seed_db.py
+data/idioms.sqlite
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# local-only Claude Code settings
+.claude/settings.local.json
+
+# editor/OS
+/.idea/
+.DS_Store

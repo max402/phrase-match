@@ -1,0 +1,5 @@
+# All dependencies are OPTIONAL — the scripts run on the Python 3.10+ stdlib.
+# Installing these improves matching quality:
+rapidfuzz>=3.0        # better fuzzy scoring (fallback: difflib)
+pymorphy3>=2.0        # Russian lemmatization (fallback: light normalization)
+pymorphy3-dicts-ru    # dictionaries for pymorphy3

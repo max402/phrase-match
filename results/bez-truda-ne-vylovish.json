@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "generated": "2026-07-14",
+  "generator": "phrase-match: scripts retrieve (data/idioms.json v1, lookup score 100), the model selects the reading and ranks analogs",
+  "phrase": "без труда не выловишь и рыбку из пруда",
+  "phrase_id": "bez-truda-ne-vylovish",
+  "source_lang": "ru",
+  "prompt_components": {
+    "role": "Russian–German–English phraseologist",
+    "purpose": "Register-faithful, context-correct rendering; register fidelity matters more than literal meaning",
+    "inputs": ["phrase", "context", "source_lang", "target_lang"],
+    "task_decomposition": [
+      "list all readings of the phrase",
+      "state which reading the context selects and why",
+      "rank target-language analogs by register and pragmatics",
+      "attach only script-verified references"
+    ],
+    "output_contract": "each entry in analyses[]: context → reading_selected + evidence, readings_rejected, ranked analogs per language with register/pragmatics/sources, escape-hatch status",
+    "contrastive_example": "this phrase has a single reading, so no contrastive pair exists yet; the analyses[] array reserves the slot — add a second context here if a divergent usage is ever attested",
+    "escape_hatch": "if no idiomatic equivalent exists, escape_hatch_used=true and only register-matched paraphrases (sources: []) are offered — presented as paraphrases, never as cited facts",
+    "grounding_rule": "every URL below returned HTTP 200 to scripts/verify_refs.py on verification.checked; analogs without sources are explicitly unverified"
+  },
+  "analyses": [
+    {
+      "context": "Отец объясняет сыну, что без стараний он не добьётся результата.",
+      "context_label": "didactic, parent to child — the proverb's home register",
+      "reading_selected": "no-effort-no-result",
+      "evidence": "«без стараний», «не добьётся результата» — the classic didactic use; this is the phrase's only attested reading",
+      "readings_rejected": [],
+      "escape_hatch_used": false,
+      "analogs": {
+        "de": [
+          {
+            "rank": 1,
+            "text": "Ohne Fleiß kein Preis.",
+            "register": "proverb, neutral; common in didactic contexts",
+            "pragmatics": "standard German proverb with the same meaning and the closest register match; loses the fishing imagery",
+            "sources": ["https://de.wiktionary.org/wiki/ohne_Fleiß_kein_Preis"]
+          }
+        ],
+        "en": [
+          {
+            "rank": 1,
+            "text": "No pain, no gain.",
+            "register": "informal to neutral; strong sports/fitness connotation",
+            "pragmatics": "listed as the English equivalent directly on the ru.wiktionary page of the proverb; in a didactic context flag the fitness connotation",
+            "sources": [
+              "https://ru.wiktionary.org/wiki/без_труда_не_выловишь_и_рыбку_из_пруда",
+              "https://en.wiktionary.org/wiki/no_pain,_no_gain"
+            ]
+          },
+          {
+            "rank": 2,
+            "text": "No sweet without sweat.",
+            "register": "proverb, somewhat dated",
+            "pragmatics": "second equivalent listed on the ru.wiktionary page; dated flavor can actually suit a parental admonition",
+            "sources": ["https://ru.wiktionary.org/wiki/без_труда_не_выловишь_и_рыбку_из_пруда"]
+          }
+        ]
+      }
+    }
+  ],
+  "verification": {
+    "tool": "scripts/verify_refs.py",
+    "checked": "2026-07-14",
+    "all_cited_urls_alive": true
+  }
+}
