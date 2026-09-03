@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "generated": "2026-07-14",
+  "generator": "phrase-match: scripts retrieve (data/idioms.json v1, lookup score 100), the model selects the reading and ranks analogs",
+  "phrase": "не гони лошадей",
+  "phrase_id": "ne-goni-loshadej",
+  "source_lang": "ru",
+  "prompt_components": {
+    "role": "Russian–German–English phraseologist",
+    "purpose": "Register-faithful, context-correct rendering; register fidelity matters more than literal meaning",
+    "inputs": ["phrase", "context", "source_lang", "target_lang"],
+    "task_decomposition": [
+      "list all readings of the phrase",
+      "state which reading the context selects and why",
+      "rank target-language analogs by register and pragmatics",
+      "attach only script-verified references"
+    ],
+    "output_contract": "each entry in analyses[]: context → reading_selected + evidence, readings_rejected, ranked analogs per language with register/pragmatics/sources, escape-hatch status",
+    "contrastive_example": "analyses[] itself: the same phrase under two contexts yields different renderings",
+    "escape_hatch": "if no idiomatic equivalent exists, escape_hatch_used=true and only register-matched paraphrases (sources: []) are offered — presented as paraphrases, never as cited facts",
+    "grounding_rule": "every URL below returned HTTP 200 to scripts/verify_refs.py on verification.checked; analogs without sources are explicitly unverified"
+  },
+  "analyses": [
+    {
+      "context": "Коллега торопит с решением по сделке.",
+      "context_label": "business talk — idiomatic reading",
+      "reading_selected": "dont-rush",
+      "evidence": "«торопит с решением» — someone presses for a decision; no real horses anywhere in the context",
+      "readings_rejected": [
+        {
+          "id": "literal",
+          "reason": "the context contains no horses, coach, or harness — a literal rendering here would be the classic idiom trap"
+        }
+      ],
+      "escape_hatch_used": false,
+      "analogs": {
+        "de": [
+          {
+            "rank": 1,
+            "text": "Immer langsam mit den jungen Pferden!",
+            "register": "informal, jocular",
+            "pragmatics": "keeps the horse imagery; direct appeal to slow down — fits collegial banter",
+            "caveat": "too jocular for formal writing; use rank 2 there",
+            "sources": ["https://www.dict.cc/?s=hold+your+horses"]
+          },
+          {
+            "rank": 2,
+            "text": "Immer mit der Ruhe!",
+            "register": "informal",
+            "pragmatics": "neutral 'calm down / no rush'; loses the horse imagery but is safe in any spoken register",
+            "sources": ["https://www.dict.cc/?s=hold+your+horses"]
+          }
+        ],
+        "en": [
+          {
+            "rank": 1,
+            "text": "Hold your horses!",
+            "register": "informal",
+            "pragmatics": "direct appeal to the listener to slow down; closest pragmatic match, same imagery",
+            "sources": ["https://en.wiktionary.org/wiki/hold_your_horses"]
+          },
+          {
+            "rank": 2,
+            "text": "Haste makes waste.",
+            "register": "proverb",
+            "pragmatics": "warns of the consequences of hurrying; less direct than the Russian imperative",
+            "sources": ["https://en.wiktionary.org/wiki/haste_makes_waste"]
+          }
+        ]
+      }
+    },
+    {
+      "context": "Кучер настегивал лошадей, и телега неслась под гору.",
+      "context_label": "coachman scene — literal reading",
+      "reading_selected": "literal",
+      "evidence": "«кучер», «телега», «лошадей» — real horses are being driven; the idiomatic reading does not apply",
+      "readings_rejected": [
+        {
+          "id": "dont-rush",
+          "reason": "no one is being urged to hurry with an action or decision; the horses are literal"
+        }
+      ],
+      "escape_hatch_used": true,
+      "escape_hatch_reason": "a literal reading needs a plain translation, not an idiom; the translations below are unverified paraphrases by design",
+      "analogs": {
+        "de": [
+          {
+            "rank": 1,
+            "text": "Treib die Pferde nicht so an.",
+            "register": "neutral",
+            "pragmatics": "plain literal translation; use only when real horses are meant",
+            "sources": []
+          }
+        ],
+        "en": [
+          {
+            "rank": 1,
+            "text": "Don't drive the horses so hard.",
+            "register": "neutral",
+            "pragmatics": "plain literal translation; use only when real horses are meant",
+            "sources": []
+          }
+        ]
+      }
+    }
+  ],
+  "verification": {
+    "tool": "scripts/verify_refs.py",
+    "checked": "2026-07-14",
+    "all_cited_urls_alive": true
+  }
+}
